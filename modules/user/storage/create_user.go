@@ -1,21 +1,23 @@
 package storageuser
 
 import (
-	 "context"
-	 usermodel "task1/modules/user/model"
+	"context"
+	"task1/common"
+	usermodel "task1/modules/user/model"
 )
 
 func (s *sqlStore) CreateUser(ctx context.Context, data *usermodel.UserCreate) error {
-	 db := s.db.Begin()
+	db := s.db.Begin()
 
-	 // create new user
-	 if err := db.Create(data).Error; err != nil {
-		  db.Rollback()
-		  return err
-	 }
+	// create new user
+	if err := db.Create(data).Error; err != nil {
+		db.Rollback()
+		return common.ErrDB(err)
+	}
 
-	 if err := db.Commit().Error; err != nil {
-		  return err
-	 }
-	 return nil
+	if err := db.Commit().Error; err != nil {
+		return common.ErrDB(err)
+	}
+
+	return nil
 }
