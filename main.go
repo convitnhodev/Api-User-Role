@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 	"log"
 	"task1/component"
+	"task1/middleware"
 	"task1/modules/user/transport/ginuser"
 )
 
@@ -27,7 +28,7 @@ func runService(db *gorm.DB, secretKey string) error {
 	// should use os variable
 	appCtx := component.NewAppContext(db, secretKey)
 
-	v1 := r.Group("/v1")
+	v1 := r.Group("/v1", middleware.Recover(appCtx))
 
 	user := v1.Group("/users")
 	{

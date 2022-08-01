@@ -14,7 +14,6 @@ func Register(appCtx component.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var data usermodel.UserCreate
 		if err := c.ShouldBind(&data); err != nil {
-
 			panic(err)
 		}
 
@@ -22,7 +21,6 @@ func Register(appCtx component.AppContext) gin.HandlerFunc {
 		md5 := hasher.NewMD5Hash()
 		biz := userbiz.NewRegisterBiz(store, md5)
 		if err := biz.Register(c.Request.Context(), &data); err != nil {
-
 			panic(err)
 		}
 		c.JSON(http.StatusOK, gin.H{"data": "true"})
