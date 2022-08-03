@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"task1/common"
 	"task1/component"
 	hasher2 "task1/component/hasher"
 	"task1/modules/user/biz/adminc_role"
@@ -34,6 +35,6 @@ func UpdateUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		if err := biz.UpdateUser(c.Request.Context(), user_id, &data); err != nil {
 			panic(err)
 		}
-		c.JSON(http.StatusOK, gin.H{"mail": data.Email})
+		c.JSON(http.StatusOK, common.SimpleSuccessReponse(&data))
 	}
 }

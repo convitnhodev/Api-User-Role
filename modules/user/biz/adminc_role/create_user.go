@@ -30,7 +30,7 @@ func (biz *createUserBiz) CreateNewUser(ctx context.Context, data *usermodel.Use
 		return err
 	}
 	user, err := biz.store.FindUser(ctx, map[string]interface{}{"email": data.Email})
-	if user != nil && user.Active == 1 {
+	if user != nil {
 		return common.ErrEntityExisted("User Register", err)
 	}
 

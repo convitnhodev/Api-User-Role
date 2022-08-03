@@ -7,8 +7,9 @@ import (
 )
 
 type User struct {
+	Id              int `json:"id" gorm:"column:user_id"`
+	Active          int `json:"active" gorm:"column:active;default:1"`
 	common.SQLModel `json:",inline"`
-	Id              int    `json:"id" gorm:"column:user_id"`
 	Email           string `json:"email" gorm:"column:email"`
 	Password        string `json:"password" gorm:"column:password"`
 	Role            int    `json:"-" gorm:"column:role"`
@@ -17,8 +18,9 @@ type User struct {
 }
 
 type UserCreate struct {
+	Id              int `json:"id" gorm:"column:user_id"`
+	Active          int `json:"active" gorm:"column:active;default:1"`
 	common.SQLModel `json:",inline"`
-	Id              int    `json:"id" gorm:"column:user_id"`
 	Email           string `json:"email" gorm:"column:email"`
 	LastName        string `json:"last_name" gorm:"column:last_name"`
 	FirstName       string `json:"first_name" gorm:"column:first_name"`
@@ -29,8 +31,9 @@ type UserCreate struct {
 }
 
 type UserUpdate struct {
+	Id              int `json:"id" gorm:"column:user_id"`
+	Active          int `json:"active" gorm:"column:active;default:1"`
 	common.SQLModel `json:",inline"`
-	Id              int    `json:"id" gorm:"column:user_id"`
 	Email           string `json:"email" gorm:"column:email"`
 	LastName        string `json:"last_name" gorm:"column:last_name"`
 	FirstName       string `json:"first_name" gorm:"column:first_name"`

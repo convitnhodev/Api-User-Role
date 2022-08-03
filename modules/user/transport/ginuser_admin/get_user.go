@@ -10,7 +10,7 @@ import (
 	storageuser "task1/modules/user/storage"
 )
 
-func DeleteUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
+func GetUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		user_id, err := strconv.Atoi(c.Param("id"))
@@ -19,10 +19,13 @@ func DeleteUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		}
 
 		store := storageuser.NewSQLStore(appCtx.GetMainDbConnection())
-		biz := adminc_role.NewDeleteUserBiz(store)
-		if err := biz.DeleteUser(c.Request.Context(), user_id); err != nil {
+		biz := adminc_role.NewGetUserBiz(store)
+
+		user, err := biz.GetUser(c.Request.Context(), user_id)
+		if err != nil {
 			panic(err)
 		}
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(true))
+
+		c.JSON(http.StatusOK, common.SimpleSuccessReponse(&user))
 	}
 }

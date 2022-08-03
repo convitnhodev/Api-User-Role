@@ -3,6 +3,7 @@ package ginuser_admin
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"task1/common"
 	"task1/component"
 	hasher2 "task1/component/hasher"
 	"task1/modules/user/biz/adminc_role"
@@ -24,6 +25,6 @@ func CreateUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		if err := biz.CreateNewUser(c.Request.Context(), &data); err != nil {
 			panic(err)
 		}
-		c.JSON(http.StatusOK, gin.H{"mail": data.Email})
+		c.JSON(http.StatusOK, common.SimpleSuccessReponse(&data))
 	}
 }

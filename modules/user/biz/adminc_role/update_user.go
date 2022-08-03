@@ -7,7 +7,7 @@ import (
 	usermodel "task1/modules/user/model"
 )
 
-type UpaateUserStore interface {
+type UpdateUserStore interface {
 	FindUser(ctx context.Context, conditions map[string]interface{}) (*usermodel.User, error)
 	UpdateUser(ctx context.Context,
 		data *usermodel.UserUpdate,
@@ -15,11 +15,11 @@ type UpaateUserStore interface {
 }
 
 type updateUserBiz struct {
-	store  UpaateUserStore
+	store  UpdateUserStore
 	hasher Hasher
 }
 
-func NewUpdateUserBiz(store UpaateUserStore, hasher Hasher) *updateUserBiz {
+func NewUpdateUserBiz(store UpdateUserStore, hasher Hasher) *updateUserBiz {
 	return &updateUserBiz{store, hasher}
 }
 

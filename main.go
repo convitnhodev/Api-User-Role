@@ -36,6 +36,7 @@ func runService(db *gorm.DB, secretKey string) error {
 		admin_user.POST("/register/new", ginuser_admin.CreateUserByAdmin(appCtx))
 		admin_user.DELETE("/delete/:id", ginuser_admin.DeleteUserByAdmin(appCtx))
 		admin_user.PATCH("/update/:id", ginuser_admin.UpdateUserByAdmin(appCtx))
+		admin_user.GET("/get/:id", ginuser_admin.GetUserByAdmin(appCtx))
 	}
 
 	//user := v1.Group("/users")
