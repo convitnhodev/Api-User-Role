@@ -22,10 +22,7 @@ func UpdateUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 
 		var data usermodel.UserUpdate
 		if err := c.ShouldBind(&data); err != nil {
-			c.JSON(400, gin.H{
-				"error": err.Error(),
-			})
-			return
+			panic(err)
 		}
 
 		store := storageuser.NewSQLStore(appCtx.GetMainDbConnection())
