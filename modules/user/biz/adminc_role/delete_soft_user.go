@@ -19,9 +19,9 @@ func NewDeleteUserBiz(store DeleteUserStore) *deleteUserBiz {
 	return &deleteUserBiz{store}
 }
 
-func (biz *deleteUserBiz) DeleteUser(ctx context.Context, email string) error {
+func (biz *deleteUserBiz) DeleteUser(ctx context.Context, id int) error {
 
-	oldUser, err := biz.store.FindUser(ctx, map[string]interface{}{"email": email})
+	oldUser, err := biz.store.FindUser(ctx, map[string]interface{}{"user_id": id})
 	if err != nil {
 		return err
 	}
@@ -30,9 +30,8 @@ func (biz *deleteUserBiz) DeleteUser(ctx context.Context, email string) error {
 		return errors.New("data deleted")
 	}
 
-	if err := biz.store.DeleteUser(ctx, map[string]interface{}{"email": email}); err != nil {
+	if err := biz.store.DeleteUser(ctx, map[string]interface{}{"user_id": id}); err != nil {
 		return err
 	}
-
 	return nil
 }

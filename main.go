@@ -15,7 +15,6 @@ func main() {
 	dsn := ("taskIbennefit:Thaothaothao2230@tcp(localhost:3306)/task1?charset=utf8mb4&parseTime=True&loc=Local")
 	db, _ := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	fmt.Println(db)
-
 	db = db.Debug()
 
 	if err := runService(db, "viethung"); err != nil {
@@ -35,6 +34,8 @@ func runService(db *gorm.DB, secretKey string) error {
 	admin_user := v1.Group("/admin")
 	{
 		admin_user.POST("/register/new", ginuser_admin.CreateUserByAdmin(appCtx))
+		admin_user.DELETE("/delete/:id", ginuser_admin.DeleteUserByAdmin(appCtx))
+		admin_user.PATCH("/update/:id", ginuser_admin.UpdateUserByAdmin(appCtx))
 	}
 
 	//user := v1.Group("/users")

@@ -5,22 +5,33 @@ import (
 	"net/http"
 	"strconv"
 	"task1/component"
+	hasher2 "task1/component/hasher"
 	"task1/modules/user/biz/adminc_role"
 	usermodel "task1/modules/user/model"
 	storageuser "task1/modules/user/storage"
 )
 
-func DeleteUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
+func UpdateUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var data usermodel.UserCreate
 		user_id, err := strconv.Atoi(c.Param("id"))
+
 		if err != nil {
 			panic(err)
 		}
 
+		var data usermodel.UserUpdate
+		if err := c.ShouldBind(&data); err != nil {
+			c.JSON(400, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
 		store := storageuser.NewSQLStore(appCtx.GetMainDbConnection())
-		biz := adminc_role.NewDeleteUserBiz(store)
-		if err := biz.DeleteUser(c.Request.Context(), user_id); err != nil {
+		md5 := hasher2.NewMD5Hash()
+
+		biz := adminc_role.NewUpdateUserBiz(store, md5)
+		if err := biz.UpdateUser(c.Request.Context(), user_id, &data); err != nil {
 			panic(err)
 		}
 		c.JSON(http.StatusOK, gin.H{"mail": data.Email})

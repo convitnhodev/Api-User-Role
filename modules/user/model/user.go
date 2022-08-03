@@ -30,13 +30,13 @@ type UserCreate struct {
 
 type UserUpdate struct {
 	common.SQLModel `json:",inline"`
-	Id              int     `json:"id" gorm:"column:user_id"`
-	Email           *string `json:"email" gorm:"column:email"`
-	LastName        *string `json:"last_name" gorm:"column:last_name"`
-	FirstName       *string `json:"first_name" gorm:"column:first_name"`
-	Password        *string `json:"password" gorm:"column:password"`
-	Role            *int    `json:"role" gorm:"column:role"`
-	Salt            *string `json:"-" gorm:"column:salt"`
+	Id              int    `json:"id" gorm:"column:user_id"`
+	Email           string `json:"email" gorm:"column:email"`
+	LastName        string `json:"last_name" gorm:"column:last_name"`
+	FirstName       string `json:"first_name" gorm:"column:first_name"`
+	Password        string `json:"password" gorm:"column:password"`
+	Role            *int   `json:"role" gorm:"column:role"`
+	Salt            string `json:"-" gorm:"column:salt"`
 	//Dept            int    `json:"-" gorm:"column:dept"`
 }
 

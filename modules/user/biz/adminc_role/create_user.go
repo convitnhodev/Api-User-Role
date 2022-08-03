@@ -9,6 +9,7 @@ import (
 type CreateUserStore interface {
 	FindUser(ctx context.Context, conditions map[string]interface{}) (*usermodel.User, error)
 	CreateUser(ctx context.Context, data *usermodel.UserCreate) error
+	UpdateUser(ctx context.Context, data *usermodel.UserUpdate, conditions map[string]interface{}) error
 }
 
 type Hasher interface {
@@ -29,7 +30,7 @@ func (biz *createUserBiz) CreateNewUser(ctx context.Context, data *usermodel.Use
 		return err
 	}
 	user, err := biz.store.FindUser(ctx, map[string]interface{}{"email": data.Email})
-	if user != nil {
+	if user != nil && user.Active == 1 {
 		return common.ErrEntityExisted("User Register", err)
 	}
 
