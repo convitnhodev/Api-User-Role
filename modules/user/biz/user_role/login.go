@@ -1,4 +1,4 @@
-package userbiz
+package user_role
 
 import (
 	"context"

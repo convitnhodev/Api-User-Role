@@ -7,7 +7,7 @@ import (
 	"task1/component"
 	"task1/component/hasher"
 	"task1/component/tokenprovider/jwt"
-	userbiz "task1/modules/user/biz"
+	userbiz "task1/modules/user/biz/user_role"
 	usermodel "task1/modules/user/model"
 	storageuser "task1/modules/user/storage"
 )
@@ -36,6 +36,5 @@ func Login(appCtx component.AppContext) gin.HandlerFunc {
 		}
 
 		c.JSON(http.StatusOK, common.SimpleSuccessReponse(account))
-
 	}
 }

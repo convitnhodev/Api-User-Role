@@ -8,7 +8,7 @@ import (
 	"log"
 	"task1/component"
 	"task1/middleware"
-	"task1/modules/user/transport/ginuser"
+	"task1/modules/user/transport/ginuser_admin"
 )
 
 func main() {
@@ -28,13 +28,21 @@ func runService(db *gorm.DB, secretKey string) error {
 	// should use os variable
 	appCtx := component.NewAppContext(db, secretKey)
 
-	v1 := r.Group("/v1", middleware.Recover(appCtx))
+	r.Use(middleware.Recover(appCtx))
 
-	user := v1.Group("/users")
+	v1 := r.Group("/v1")
+
+	admin_user := v1.Group("/admin")
 	{
-		user.POST("/register", ginuser.Register(appCtx))
-		user.POST("/login", ginuser.Login(appCtx))
+		admin_user.POST("/register/new", ginuser_admin.CreateUserByAdmin(appCtx))
 	}
 
+	//user := v1.Group("/users")
+	//{
+	//	user.POST("/register", ginuser.Register(appCtx))
+	//	user.POST("/login", ginuser.Login(appCtx))
+	//}
+
 	return r.Run()
+
 }

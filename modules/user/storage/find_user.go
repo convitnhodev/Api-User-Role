@@ -7,12 +7,8 @@ import (
 	usermodel "task1/modules/user/model"
 )
 
-func (s *sqlStore) FindUser(ctx context.Context, conditions map[string]interface{}, moreKeys ...string) (*usermodel.User, error) {
+func (s *sqlStore) FindUser(ctx context.Context, conditions map[string]interface{}) (*usermodel.User, error) {
 	db := s.db
-	// preload
-	for i := range moreKeys {
-		db = db.Preload(moreKeys[i])
-	}
 
 	var data usermodel.User
 	// find user,

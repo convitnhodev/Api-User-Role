@@ -1,4 +1,4 @@
-package userbiz
+package adminc_role
 
 import (
 	"context"
@@ -6,37 +6,37 @@ import (
 	usermodel "task1/modules/user/model"
 )
 
-type RegisterStore interface {
+type CreateUserStore interface {
+	FindUser(ctx context.Context, conditions map[string]interface{}) (*usermodel.User, error)
 	CreateUser(ctx context.Context, data *usermodel.UserCreate) error
-	FindUser(ctx context.Context, conditions map[string]interface{}, moreKeys ...string) (*usermodel.User, error)
 }
 
 type Hasher interface {
 	Hash(data string) string
 }
 
-type registerBiz struct {
-	store  RegisterStore
+type createUserBiz struct {
+	store  CreateUserStore
 	hasher Hasher
 }
 
-func NewRegisterBiz(store RegisterStore, hasher Hasher) *registerBiz {
-	return &registerBiz{store, hasher}
+func NewCreateUserBiz(store CreateUserStore, hasher Hasher) *createUserBiz {
+	return &createUserBiz{store, hasher}
 }
 
-func (biz *registerBiz) Register(ctx context.Context, data *usermodel.UserCreate) error {
+func (biz *createUserBiz) CreateNewUser(ctx context.Context, data *usermodel.UserCreate) error {
+	if err := data.Validata(); err != nil {
+		return err
+	}
 	user, err := biz.store.FindUser(ctx, map[string]interface{}{"email": data.Email})
-
 	if user != nil {
 		return common.ErrEntityExisted("User Register", err)
 	}
 
-	// random salt
 	salt := common.GenSalt(50)
 
 	data.Password = biz.hasher.Hash(data.Password + salt)
 	data.Salt = salt
-	data.Active = 1
 
 	if err := biz.store.CreateUser(ctx, data); err != nil {
 		return common.ErrCannotCreateEntity("User Register", err)
