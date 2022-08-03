@@ -34,16 +34,17 @@ func runService(db *gorm.DB, secretKey string) error {
 
 	user := v1.Group("/user")
 	{
-		user.POST("/new", gin_user.CreateUserByAdmin(appCtx))
-		user.DELETE("/delete/:id", gin_user.DeleteUserByAdmin(appCtx))
-		user.PATCH("/update/:id", gin_user.UpdateUserByAdmin(appCtx))
-		user.GET("/get/:id", gin_user.GetUserByAdmin(appCtx))
-		user.GET("/list/", gin_user.ListUserByAdmin(appCtx))
+		user.POST("/new", ginuser.CreateUserByAdmin(appCtx))
+		user.DELETE("/delete/:id", ginuser.DeleteUserByAdmin(appCtx))
+		user.PATCH("/update/:id", ginuser.UpdateUserByAdmin(appCtx))
+		user.GET("/get/:id", ginuser.GetUserByAdmin(appCtx))
+		user.GET("/list/", ginuser.ListUserByAdmin(appCtx))
 	}
 
 	role := v1.Group("/role")
 	{
-		role.POST("/new", gin_role.CreateRoleByAdmin(appCtx))
+		role.POST("/new", ginrole.CreateRoleByAdmin(appCtx))
+		role.DELETE("/delete/:id", ginrole.DeleteRoleByAdmin(appCtx))
 
 	}
 

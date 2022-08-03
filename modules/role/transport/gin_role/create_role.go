@@ -1,4 +1,4 @@
-package gin_role
+package ginrole
 
 import (
 	"github.com/gin-gonic/gin"

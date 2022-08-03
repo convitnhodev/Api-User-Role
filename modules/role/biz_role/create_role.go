@@ -11,15 +11,15 @@ type CreateRoleStore interface {
 	FindRole(ctx context.Context, conditions map[string]interface{}) (*model_role.Role, error)
 }
 
-type CreateRoleBiz struct {
+type createRoleBiz struct {
 	store CreateRoleStore
 }
 
-func NewCreateRoleBiz(store CreateRoleStore) *CreateRoleBiz {
-	return &CreateRoleBiz{store}
+func NewCreateRoleBiz(store CreateRoleStore) *createRoleBiz {
+	return &createRoleBiz{store}
 }
 
-func (biz *CreateRoleBiz) CreateRole(ctx context.Context, data *model_role.Role) error {
+func (biz *createRoleBiz) CreateRole(ctx context.Context, data *model_role.Role) error {
 	role, err := biz.store.FindRole(ctx, map[string]interface{}{"role_code": data.Role_code})
 	if role != nil {
 		return common.ErrEntityExisted("User Register", err)
