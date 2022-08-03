@@ -3,7 +3,7 @@ package storageuser
 import (
 	"context"
 	"task1/common"
-	usermodel "task1/modules/user/model"
+	usermodel "task1/modules/user/model_user"
 )
 
 func (s *sqlStore) ListUserByConditions(ctx context.Context,

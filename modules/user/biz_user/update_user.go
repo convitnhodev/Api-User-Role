@@ -1,10 +1,10 @@
-package adminc_role
+package bizuser
 
 import (
 	"context"
 	"errors"
 	"task1/common"
-	usermodel "task1/modules/user/model"
+	usermodel "task1/modules/user/model_user"
 )
 
 type UpdateUserStore interface {

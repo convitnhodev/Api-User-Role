@@ -8,7 +8,7 @@ import (
 	"task1/common"
 	"task1/component"
 	"task1/component/tokenprovider/jwt"
-	storageuser "task1/modules/user/storage"
+	storageuser "task1/modules/user/storage_user"
 )
 
 func ErrWrongAuthHeader(err error) *common.AppError {
@@ -60,5 +60,4 @@ func RequireAuth(appCtx component.AppContext) func(c *gin.Context) {
 		c.Set(common.CurrentUser, user)
 		c.Next()
 	}
-
 }

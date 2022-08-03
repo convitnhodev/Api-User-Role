@@ -4,7 +4,7 @@ import (
 	"context"
 	"gorm.io/gorm"
 	"task1/common"
-	usermodel "task1/modules/user/model"
+	usermodel "task1/modules/user/model_user"
 )
 
 func (s *sqlStore) FindUser(ctx context.Context, conditions map[string]interface{}) (*usermodel.User, error) {

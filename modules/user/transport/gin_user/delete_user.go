@@ -1,4 +1,4 @@
-package ginuser_admin
+package gin_user
 
 import (
 	"github.com/gin-gonic/gin"
@@ -6,8 +6,9 @@ import (
 	"strconv"
 	"task1/common"
 	"task1/component"
-	"task1/modules/user/biz/adminc_role"
-	storageuser "task1/modules/user/storage"
+	bizuser "task1/modules/user/biz_user"
+
+	storageuser "task1/modules/user/storage_user"
 )
 
 func DeleteUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
@@ -19,7 +20,7 @@ func DeleteUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		}
 
 		store := storageuser.NewSQLStore(appCtx.GetMainDbConnection())
-		biz := adminc_role.NewDeleteUserBiz(store)
+		biz := bizuser.NewDeleteUserBiz(store)
 		if err := biz.DeleteUser(c.Request.Context(), user_id); err != nil {
 			panic(err)
 		}

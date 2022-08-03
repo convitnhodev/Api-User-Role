@@ -1,4 +1,4 @@
-package ginuser_admin
+package gin_user
 
 import (
 	"github.com/gin-gonic/gin"
@@ -6,9 +6,9 @@ import (
 	"task1/common"
 	"task1/component"
 	hasher2 "task1/component/hasher"
-	"task1/modules/user/biz/adminc_role"
-	usermodel "task1/modules/user/model"
-	storageuser "task1/modules/user/storage"
+	bizuser "task1/modules/user/biz_user"
+	usermodel "task1/modules/user/model_user"
+	storageuser "task1/modules/user/storage_user"
 )
 
 func CreateUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
@@ -21,7 +21,7 @@ func CreateUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		store := storageuser.NewSQLStore(appCtx.GetMainDbConnection())
 		md5 := hasher2.NewMD5Hash()
 
-		biz := adminc_role.NewCreateUserBiz(store, md5)
+		biz := bizuser.NewCreateUserBiz(store, md5)
 		if err := biz.CreateNewUser(c.Request.Context(), &data); err != nil {
 			panic(err)
 		}

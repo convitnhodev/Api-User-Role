@@ -1,13 +1,13 @@
-package ginuser_admin
+package gin_user
 
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"task1/common"
 	"task1/component"
-	"task1/modules/user/biz/adminc_role"
-	usermodel "task1/modules/user/model"
-	storageuser "task1/modules/user/storage"
+	bizuser "task1/modules/user/biz_user"
+	usermodel "task1/modules/user/model_user"
+	storageuser "task1/modules/user/storage_user"
 )
 
 func ListUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
@@ -28,7 +28,7 @@ func ListUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 
 		store := storageuser.NewSQLStore(appCtx.GetMainDbConnection())
 
-		biz := adminc_role.NewListUserBiz(store)
+		biz := bizuser.NewListUserBiz(store)
 		data, err := biz.ListUser(c.Request.Context(), &filter, &paging)
 		if err != nil {
 			panic(err)

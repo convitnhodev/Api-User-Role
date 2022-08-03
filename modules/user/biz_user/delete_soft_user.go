@@ -1,9 +1,9 @@
-package adminc_role
+package bizuser
 
 import (
 	"context"
 	"errors"
-	usermodel "task1/modules/user/model"
+	usermodel "task1/modules/user/model_user"
 )
 
 type DeleteUserStore interface {

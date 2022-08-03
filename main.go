@@ -8,7 +8,7 @@ import (
 	"log"
 	"task1/component"
 	"task1/middleware"
-	"task1/modules/user/transport/ginuser_admin"
+	"task1/modules/user/transport/gin_user"
 )
 
 func main() {
@@ -33,11 +33,11 @@ func runService(db *gorm.DB, secretKey string) error {
 
 	admin_user := v1.Group("/admin")
 	{
-		admin_user.POST("/register/new", ginuser_admin.CreateUserByAdmin(appCtx))
-		admin_user.DELETE("/delete/:id", ginuser_admin.DeleteUserByAdmin(appCtx))
-		admin_user.PATCH("/update/:id", ginuser_admin.UpdateUserByAdmin(appCtx))
-		admin_user.GET("/get/:id", ginuser_admin.GetUserByAdmin(appCtx))
-		admin_user.GET("/list/", ginuser_admin.ListUserByAdmin(appCtx))
+		admin_user.POST("/register/new", gin_user.CreateUserByAdmin(appCtx))
+		admin_user.DELETE("/delete/:id", gin_user.DeleteUserByAdmin(appCtx))
+		admin_user.PATCH("/update/:id", gin_user.UpdateUserByAdmin(appCtx))
+		admin_user.GET("/get/:id", gin_user.GetUserByAdmin(appCtx))
+		admin_user.GET("/list/", gin_user.ListUserByAdmin(appCtx))
 	}
 
 	//user := v1.Group("/users")

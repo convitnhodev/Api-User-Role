@@ -1,8 +1,8 @@
-package adminc_role
+package bizuser
 
 import (
 	"context"
-	usermodel "task1/modules/user/model"
+	usermodel "task1/modules/user/model_user"
 )
 
 type GetUserStore interface {
