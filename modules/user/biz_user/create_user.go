@@ -26,9 +26,10 @@ func NewCreateUserBiz(store CreateUserStore, hasher Hasher) *createUserBiz {
 }
 
 func (biz *createUserBiz) CreateNewUser(ctx context.Context, data *usermodel.UserCreate) error {
-	if err := data.Validata(); err != nil {
+	if err := data.Validate(); err != nil {
 		return err
 	}
+
 	user, err := biz.store.FindUser(ctx, map[string]interface{}{"email": data.Email})
 	if user != nil {
 		return common.ErrEntityExisted("User Register", err)

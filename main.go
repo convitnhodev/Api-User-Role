@@ -8,6 +8,7 @@ import (
 	"log"
 	"task1/component"
 	"task1/middleware"
+	"task1/modules/role/transport/gin_role"
 	"task1/modules/user/transport/gin_user"
 )
 
@@ -31,20 +32,20 @@ func runService(db *gorm.DB, secretKey string) error {
 
 	v1 := r.Group("/v1")
 
-	admin_user := v1.Group("/admin")
+	user := v1.Group("/user")
 	{
-		admin_user.POST("/register/new", gin_user.CreateUserByAdmin(appCtx))
-		admin_user.DELETE("/delete/:id", gin_user.DeleteUserByAdmin(appCtx))
-		admin_user.PATCH("/update/:id", gin_user.UpdateUserByAdmin(appCtx))
-		admin_user.GET("/get/:id", gin_user.GetUserByAdmin(appCtx))
-		admin_user.GET("/list/", gin_user.ListUserByAdmin(appCtx))
+		user.POST("/new", gin_user.CreateUserByAdmin(appCtx))
+		user.DELETE("/delete/:id", gin_user.DeleteUserByAdmin(appCtx))
+		user.PATCH("/update/:id", gin_user.UpdateUserByAdmin(appCtx))
+		user.GET("/get/:id", gin_user.GetUserByAdmin(appCtx))
+		user.GET("/list/", gin_user.ListUserByAdmin(appCtx))
 	}
 
-	//user := v1.Group("/users")
-	//{
-	//	user.POST("/register", ginuser.Register(appCtx))
-	//	user.POST("/login", ginuser.Login(appCtx))
-	//}
+	role := v1.Group("/role")
+	{
+		role.POST("/new", gin_role.CreateRoleByAdmin(appCtx))
+
+	}
 
 	return r.Run()
 
