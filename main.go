@@ -45,6 +45,7 @@ func runService(db *gorm.DB, secretKey string) error {
 	{
 		role.POST("/new", ginrole.CreateRoleByAdmin(appCtx))
 		role.DELETE("/delete/:id", ginrole.DeleteRoleByAdmin(appCtx))
+		role.GET("/get/:id", ginrole.GetRoleByAdmin(appCtx))
 
 	}
 
