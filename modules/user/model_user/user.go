@@ -8,13 +8,13 @@ import (
 )
 
 type User struct {
-	Id              int `json:"id" gorm:"column:user_id"`
+	Id              int `json:"id" gorm:"column:user_id;primary_key"`
 	Active          int `json:"active" gorm:"column:active;default:1"`
 	common.SQLModel `json:",inline"`
 	Email           string            `json:"email" gorm:"column:email"`
 	Password        string            `json:"password" gorm:"column:password"`
 	Salt            string            `json:"-" gorm:"column:salt"`
-	Roles           []model_role.Role `json:"role" gorm:"many2many:user_role; default:0"`
+	Roles           []model_role.Role `json:"role" gorm:"many2many:user_role"`
 }
 
 type UserCreate struct {

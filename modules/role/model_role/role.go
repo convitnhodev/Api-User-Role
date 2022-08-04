@@ -6,7 +6,7 @@ import (
 
 type Role struct {
 	common.SQLModel `json:",inline"`
-	Role_code       string       `json:"role_code" gorm:"column:role_code"`
+	Role_code       string       `json:"role_code" gorm:"column:role_code;primary_key"`
 	Role_name       string       `json:"role_name" gorm:"column:role_name"`
 	Department_id   int          `json:"department_id" gorm:"column:dept_id"`
 	Permissions     []Permission `json:"permission" gorm:"many2many:role_permission;"`
