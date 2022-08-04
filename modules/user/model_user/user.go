@@ -14,7 +14,7 @@ type User struct {
 	Email           string            `json:"email" gorm:"column:email"`
 	Password        string            `json:"password" gorm:"column:password"`
 	Salt            string            `json:"-" gorm:"column:salt"`
-	Role            []model_role.Role `json:"role" gorm:"many2many:user_role;"`
+	Roles           []model_role.Role `json:"role" gorm:"many2many:user_role; default:0"`
 }
 
 type UserCreate struct {
@@ -26,7 +26,7 @@ type UserCreate struct {
 	FirstName       string            `json:"first_name" gorm:"column:first_name"`
 	Password        string            `json:"password" gorm:"column:password"`
 	Salt            string            `json:"-" gorm:"column:salt"`
-	Role            []model_role.Role `json:"role" gorm:"many2many:user_role;"`
+	Roles           []model_role.Role `json:"role" gorm:"-"`
 }
 
 type UserUpdate struct {

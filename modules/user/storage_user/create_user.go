@@ -7,15 +7,22 @@ import (
 )
 
 func (s *sqlStore) CreateUser(ctx context.Context, data *usermodel.UserCreate) error {
-	db := s.db.Begin()
+	db := s.db
 
-	// create new user
 	if err := db.Create(data).Error; err != nil {
-		db.Rollback()
 		return common.ErrDB(err)
 	}
 
-	if err := db.Commit().Error; err != nil {
+	var arrUserRole []usermodel.UserRole
+
+	for _, value := range data.Roles {
+		arrUserRole = append(arrUserRole, usermodel.UserRole{
+			UserId:    data.Id,
+			Role_code: value.Role_code,
+		})
+	}
+
+	if err := db.Create(&arrUserRole).Error; err != nil {
 		return common.ErrDB(err)
 	}
 
