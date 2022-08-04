@@ -8,30 +8,30 @@ import (
 )
 
 type User struct {
-	Id              int `json:"id" gorm:"column:user_id"`
-	Active          int `json:"active" gorm:"column:active;default:1"`
+	Id              uint64 `json:"id" gorm:"column:user_id;auto_increment"`
+	Active          int    `json:"active" gorm:"column:active;default:1"`
 	common.SQLModel `json:",inline"`
 	Email           string            `json:"email" gorm:"column:email"`
 	Password        string            `json:"password" gorm:"column:password"`
 	Salt            string            `json:"-" gorm:"column:salt"`
-	Roles           []model_role.Role `json:"role" gorm:"many2many:user_role; default:0"`
+	Roles           []model_role.Role `json:"role" gorm:"many2many:user_role"`
 }
 
 type UserCreate struct {
-	Id              int `json:"id" gorm:"column:user_id"`
-	Active          int `json:"active" gorm:"column:active;default:1"`
+	Id              uint64 `json:"id" gorm:"column:user_id;auto_increment"`
+	Active          int    `json:"active" gorm:"column:active;default:1"`
 	common.SQLModel `json:",inline"`
 	Email           string            `json:"email" gorm:"column:email"`
 	LastName        string            `json:"last_name" gorm:"column:last_name"`
 	FirstName       string            `json:"first_name" gorm:"column:first_name"`
 	Password        string            `json:"password" gorm:"column:password"`
 	Salt            string            `json:"-" gorm:"column:salt"`
-	Roles           []model_role.Role `json:"role" gorm:"-"`
+	Roles           []model_role.Role `json:"role" gorm:"many2many:user_role"`
 }
 
 type UserUpdate struct {
-	Id              int `json:"id" gorm:"column:user_id"`
-	Active          int `json:"active" gorm:"column:active;default:1"`
+	Id              uint64 `json:"id" gorm:"column:user_id;auto_increment"`
+	Active          int    `json:"active" gorm:"column:active;default:1"`
 	common.SQLModel `json:",inline"`
 	Email           string            `json:"email" gorm:"column:email"`
 	LastName        *string           `json:"last_name" gorm:"column:last_name"`
