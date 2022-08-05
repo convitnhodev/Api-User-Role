@@ -20,7 +20,7 @@ func NewCreateRoleBiz(store CreateRoleStore) *createRoleBiz {
 }
 
 func (biz *createRoleBiz) CreateRole(ctx context.Context, data *model_role.Role) error {
-	role, err := biz.store.FindRole(ctx, map[string]interface{}{"role_code": data.Role_code})
+	role, err := biz.store.FindRole(ctx, map[string]interface{}{"role_code": data.RoleCode})
 	if role != nil {
 		return common.ErrEntityExisted("User Register", err)
 	}

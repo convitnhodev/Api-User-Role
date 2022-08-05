@@ -14,11 +14,11 @@ type User struct {
 	Email           string            `json:"email" gorm:"column:email"`
 	Password        string            `json:"password" gorm:"column:password"`
 	Salt            string            `json:"-" gorm:"column:salt"`
-	Roles           []model_role.Role `json:"role" gorm:"many2many:user_role"`
+	Roles           []model_role.Role `json:"roles" gorm:"many2many:user_role;"`
 }
 
 type UserCreate struct {
-	Id              int `json:"id" gorm:"column:user_id"`
+	Id              int `json:"id" gorm:"column:user_id;primaryKey;autoIncrement"`
 	Active          int `json:"active" gorm:"column:active;default:1"`
 	common.SQLModel `json:",inline"`
 	Email           string            `json:"email" gorm:"column:email"`
@@ -26,7 +26,7 @@ type UserCreate struct {
 	FirstName       string            `json:"first_name" gorm:"column:first_name"`
 	Password        string            `json:"password" gorm:"column:password"`
 	Salt            string            `json:"-" gorm:"column:salt"`
-	Roles           []model_role.Role `json:"role" gorm:"-"`
+	Roles           []model_role.Role `json:"roles" gorm:"many2many:user_role;ForeignKey:user_id;joinForeignKey:user_id;References:role_code;joinReferences:role_code"`
 }
 
 type UserUpdate struct {
