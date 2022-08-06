@@ -7,7 +7,7 @@ import (
 )
 
 type CreateUserStore interface {
-	FindUser(ctx context.Context, conditions map[string]interface{}) (*usermodel.User, error)
+	FindUser(ctx context.Context, conditions map[string]interface{}, moreKeys ...string) (*usermodel.User, error)
 	CreateUser(ctx context.Context, data *usermodel.UserCreate) error
 	UpdateUser(ctx context.Context, data *usermodel.UserUpdate, conditions map[string]interface{}) error
 }
@@ -30,7 +30,7 @@ func (biz *createUserBiz) CreateNewUser(ctx context.Context, data *usermodel.Use
 		return err
 	}
 
-	user, err := biz.store.FindUser(ctx, map[string]interface{}{"email": data.Email})
+	user, err := biz.store.FindUser(ctx, map[string]interface{}{"email": data.Email}, "Roles")
 	if user != nil {
 		return common.ErrEntityExisted("User Register", err)
 	}

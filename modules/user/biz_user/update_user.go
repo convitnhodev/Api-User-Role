@@ -8,7 +8,7 @@ import (
 )
 
 type UpdateUserStore interface {
-	FindUser(ctx context.Context, conditions map[string]interface{}) (*usermodel.User, error)
+	FindUser(ctx context.Context, conditions map[string]interface{}, moreKeys ...string) (*usermodel.User, error)
 	UpdateUser(ctx context.Context,
 		data *usermodel.UserUpdate,
 		conditions map[string]interface{}) error

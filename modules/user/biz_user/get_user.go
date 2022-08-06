@@ -6,7 +6,7 @@ import (
 )
 
 type GetUserStore interface {
-	FindUser(ctx context.Context, conditions map[string]interface{}) (*usermodel.User, error)
+	FindUser(ctx context.Context, conditions map[string]interface{}, moreKeys ...string) (*usermodel.User, error)
 }
 
 type getUserBiz struct {
@@ -19,7 +19,7 @@ func NewGetUserBiz(store GetUserStore) *getUserBiz {
 
 func (biz *getUserBiz) GetUser(ctx context.Context, id int) (*usermodel.User, error) {
 
-	user, err := biz.store.FindUser(ctx, map[string]interface{}{"user_id": id})
+	user, err := biz.store.FindUser(ctx, map[string]interface{}{"user_id": id}, "")
 	if err != nil {
 		return nil, err
 	}

@@ -3,6 +3,7 @@ package storagerole
 import (
 	"context"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 	"task1/common"
 	"task1/modules/role/model_role"
 )
@@ -12,7 +13,7 @@ func (s *sqlStore) FindRole(ctx context.Context, conditions map[string]interface
 
 	var data model_role.Role
 	// find user,
-	if err := db.Table(data.TableName()).First(&data, conditions).Error; err != nil {
+	if err := db.Table(data.TableName()).Preload(clause.Associations).First(&data, conditions).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, common.RecordNotFound
 		}

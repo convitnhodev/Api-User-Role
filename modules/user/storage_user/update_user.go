@@ -11,8 +11,10 @@ func (s *sqlStore) UpdateUser(ctx context.Context,
 	conditions map[string]interface{}) error {
 	db := s.db
 
-	if err := db.Table(usermodel.User{}.TableName()).Where(conditions).Updates(data).Error; err != nil {
+	if err := db.Where(conditions).Table("user_role").
+		Updates(data).Error; err != nil {
 		return common.ErrDB(err)
 	}
+
 	return nil
 }

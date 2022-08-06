@@ -21,6 +21,7 @@ func UpdateUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		}
 
 		var data usermodel.UserUpdate
+		data.Id = user_id
 		if err := c.ShouldBind(&data); err != nil {
 			panic(err)
 		}

@@ -7,7 +7,7 @@ import (
 )
 
 type DeleteUserStore interface {
-	FindUser(ctx context.Context, conditions map[string]interface{}) (*usermodel.User, error)
+	FindUser(ctx context.Context, conditions map[string]interface{}, moreKeys ...string) (*usermodel.User, error)
 	DeleteUser(ctx context.Context, conditions map[string]interface{}) error
 }
 
