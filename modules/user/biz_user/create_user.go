@@ -9,7 +9,6 @@ import (
 type CreateUserStore interface {
 	FindUser(ctx context.Context, conditions map[string]interface{}, moreKeys ...string) (*usermodel.User, error)
 	CreateUser(ctx context.Context, data *usermodel.UserCreate) error
-	UpdateUser(ctx context.Context, data *usermodel.UserUpdate, conditions map[string]interface{}) error
 }
 
 type Hasher interface {
