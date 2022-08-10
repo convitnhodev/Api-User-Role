@@ -55,5 +55,5 @@ func runService(db *gorm.DB, secretKey string) error {
 		role.GET("/get/:id", ginrole.GetRoleByAdmin(appCtx))
 		role.GET("/list/", ginrole.ListRoleByAdmin(appCtx))
 	}
-	return r.Run()
+	return r.Run(":8080")
 }

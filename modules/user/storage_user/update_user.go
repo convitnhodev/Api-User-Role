@@ -2,7 +2,6 @@ package storageuser
 
 import (
 	"context"
-	"gorm.io/gorm"
 	"task1/common"
 	usermodel "task1/modules/user/model_user"
 )
@@ -10,10 +9,18 @@ import (
 func (s *sqlStore) UpdateUser(ctx context.Context,
 	data *usermodel.UserUpdate,
 	conditions map[string]interface{}) error {
-	db := s.db
+	db := s.db.Begin()
+	if err := db.Table("user_role").Delete(nil, conditions).Error; err != nil {
+		db.Rollback()
+		return common.ErrDB(err)
+	}
 
-	if err := db.Session(&gorm.Session{AllowGlobalUpdate: true}).Where(conditions).Table("users").
-		Updates(data).Error; err != nil {
+	if err := db.Where(conditions).Updates(data).Error; err != nil {
+		db.Rollback()
+		return common.ErrDB(err)
+	}
+
+	if err := db.Commit().Error; err != nil {
 		return common.ErrDB(err)
 	}
 
