@@ -12,5 +12,6 @@ const CurrentUser = "user"
 type Requester interface {
 	GetUserId() int
 	GetEmail() string
-	GetRole() string
+	GetPassword() string
+	GetSalt() string
 }

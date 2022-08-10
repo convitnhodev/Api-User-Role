@@ -165,3 +165,11 @@ func ErrNoPermission(err error) *AppError {
 		fmt.Sprintf("ErrNoPermission"),
 	)
 }
+
+func ErrInvalidPassword(err error) *AppError {
+	return NewCustomError(
+		err,
+		fmt.Sprintf("You enter invalid password"),
+		fmt.Sprintf("ErrInvalidPassword"),
+	)
+}

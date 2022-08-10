@@ -74,3 +74,19 @@ func (user *UserCreate) Validate() error {
 
 	return nil
 }
+
+func (u *User) GetUserId() int {
+	return u.Id
+}
+
+func (u *User) GetEmail() string {
+	return u.Email
+}
+
+func (u *User) GetPassword() string {
+	return u.Password
+}
+
+func (u *User) GetSalt() string {
+	return u.Salt
+}

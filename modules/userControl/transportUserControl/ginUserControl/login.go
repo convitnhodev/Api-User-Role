@@ -26,7 +26,7 @@ func Login(appCtx component.AppContext) gin.HandlerFunc {
 
 		store := storageUserControl.NewSQLStore(db)
 		md5 := hasher.NewMD5Hash()
-		timeSet := bizUserControl.NewSetTime(1, 2)
+		timeSet := bizUserControl.NewSetTime(60*60*24*30, 2*60*60*24*30)
 		biz := bizUserControl.NewLoginBusiness(store, tokenProvider, md5, timeSet)
 
 		account, err := biz.Login(c.Request.Context(), &loginUserData)

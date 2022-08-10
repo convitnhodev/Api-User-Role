@@ -55,6 +55,8 @@ func runService(db *gorm.DB, secretKey string) error {
 	userControl := v1.Group("/usercontrol")
 	{
 		userControl.POST("/login", ginUserControl.Login(appCtx))
+		userControl.GET("/profile", middleware.RequireAuth(appCtx), ginUserControl.GetProfile(appCtx))
+		userControl.POST("/changepassword", middleware.RequireAuth(appCtx), ginUserControl.ChangePassword(appCtx))
 
 	}
 	return r.Run(":8080")

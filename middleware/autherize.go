@@ -48,7 +48,7 @@ func RequireAuth(appCtx component.AppContext) func(c *gin.Context) {
 		if err != nil {
 			panic(err)
 		}
-		user, err := store.FindUser(c.Request.Context(), map[string]interface{}{"id": payload.UserId})
+		user, err := store.FindUser(c.Request.Context(), map[string]interface{}{"user_id": payload.UserId})
 		if err != nil {
 			panic(err)
 		}
