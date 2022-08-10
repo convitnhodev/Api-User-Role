@@ -15,6 +15,7 @@ import (
 
 func main() {
 	dsn := ("taskIbennefit:Thaothaothao2230@tcp(localhost:3306)/task1?charset=utf8mb4&parseTime=True&loc=Local")
+
 	db, _ := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	fmt.Println(db)
@@ -24,12 +25,6 @@ func main() {
 		log.Fatalln(err)
 	}
 }
-
-//func New() *TemplateRepo {
-//	 db := database.InitDb()
-//	 db.AutoMigrate(&models.Templatel{})
-//	 return &TemplateRepo{Db: db}
-//}
 
 func runService(db *gorm.DB, secretKey string) error {
 	r := gin.Default()
