@@ -8,7 +8,7 @@ import (
 	"task1/common"
 	"task1/component"
 	"task1/component/tokenprovider/jwt"
-	storageuser "task1/modules/user/storage_user"
+	storageuser "task1/modules/user/storageUser"
 )
 
 func ErrWrongAuthHeader(err error) *common.AppError {

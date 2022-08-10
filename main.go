@@ -8,8 +8,9 @@ import (
 	"log"
 	"task1/component"
 	"task1/middleware"
-	"task1/modules/role/transport/gin_role"
-	"task1/modules/user/transport/gin_user"
+	ginrole "task1/modules/role/transportRole/ginRole"
+	ginuser "task1/modules/user/transportUser/ginUser"
+	"task1/modules/userControl/transportUserControl/ginUserControl"
 )
 
 func main() {
@@ -54,6 +55,12 @@ func runService(db *gorm.DB, secretKey string) error {
 		role.DELETE("/delete/:id", ginrole.DeleteRoleByAdmin(appCtx))
 		role.GET("/get/:id", ginrole.GetRoleByAdmin(appCtx))
 		role.GET("/list/", ginrole.ListRoleByAdmin(appCtx))
+	}
+
+	userControl := v1.Group("/usercontrol")
+	{
+		userControl.POST("/login", ginUserControl.Login(appCtx))
+
 	}
 	return r.Run(":8080")
 }

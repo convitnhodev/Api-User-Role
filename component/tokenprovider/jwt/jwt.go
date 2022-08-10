@@ -21,7 +21,7 @@ type myClaims struct {
 	jwt.StandardClaims
 }
 
-func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry int) (*tokenprovider.Token, error) {
+func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry float32) (*tokenprovider.Token, error) {
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, myClaims{
 		Payload: data,
 		StandardClaims: jwt.StandardClaims{

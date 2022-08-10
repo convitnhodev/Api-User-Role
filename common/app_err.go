@@ -134,6 +134,30 @@ func ErrCannotCreateEntity(entity string, err error) *AppError {
 	)
 }
 
+func ErrInvalidLogin(err error) *AppError {
+	return NewCustomError(
+		err,
+		fmt.Sprintf("email or password invalid"),
+		fmt.Sprintf("ErrInvalidLogin"),
+	)
+}
+
+func Err(err error) *AppError {
+	return NewCustomError(
+		err,
+		fmt.Sprintf("You have no permission"),
+		fmt.Sprintf("ErrNoPermission"),
+	)
+}
+
+func GenerateJWTFail(err error) *AppError {
+	return NewCustomError(
+		err,
+		fmt.Sprintf("genarate JWT fail"),
+		fmt.Sprintf("GenerateJWTFail"),
+	)
+}
+
 func ErrNoPermission(err error) *AppError {
 	return NewCustomError(
 		err,
