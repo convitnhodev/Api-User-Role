@@ -14,4 +14,6 @@ type Requester interface {
 	GetEmail() string
 	GetPassword() string
 	GetSalt() string
+	GetRoles() string
+	GetPermissions() string
 }

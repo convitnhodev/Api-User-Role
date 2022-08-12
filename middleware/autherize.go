@@ -83,7 +83,6 @@ func RequireAuth(appCtx component.AppContext) func(c *gin.Context) {
 		}
 
 		c.Set(common.CurrentUser, user)
-
 		c.Next()
 	}
 }

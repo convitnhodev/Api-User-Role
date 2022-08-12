@@ -90,3 +90,21 @@ func (u *User) GetPassword() string {
 func (u *User) GetSalt() string {
 	return u.Salt
 }
+
+func (u *User) GetRoles() string {
+	roles := ""
+	for _, role := range u.Roles {
+		roles = role.RoleName + ","
+	}
+	return roles
+}
+
+func (u *User) GetPermissions() string {
+	permissions := ""
+	for _, role := range u.Roles {
+		for _, permission := range role.Permissions {
+			permissions = permissions + permission.NamePermission + ","
+		}
+	}
+	return permissions
+}

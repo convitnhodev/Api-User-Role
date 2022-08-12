@@ -24,7 +24,7 @@ func main() {
 	fmt.Println(db)
 	db = db.Debug()
 
-	if err := runService(db, "viethung", component.TimeJWT{20, 1000000000000000}); err != nil {
+	if err := runService(db, "viethung", component.TimeJWT{2000000, 100000000000000}); err != nil {
 		log.Fatalln(err)
 	}
 }
@@ -58,7 +58,7 @@ func runService(db *gorm.DB, secretKey string, timeJWT component.TimeJWT) error 
 	userControl := v1.Group("/usercontrol")
 	{
 		userControl.POST("/login", ginUserControl.Login(appCtx))
-		userControl.GET("/profile", middleware.RequireAuth(appCtx), ginUserControl.GetProfile(appCtx))
+		userControl.GET("/profile", middleware.RequireAuth(appCtx), middleware.RequireRoles(appCtx, "get profile"), ginUserControl.GetProfile(appCtx))
 		userControl.POST("/changepassword", middleware.RequireAuth(appCtx), ginUserControl.ChangePassword(appCtx))
 
 	}
