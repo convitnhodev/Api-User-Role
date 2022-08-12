@@ -21,15 +21,15 @@ func main() {
 	fmt.Println(db)
 	db = db.Debug()
 
-	if err := runService(db, "viethung"); err != nil {
+	if err := runService(db, "viethung", component.TimeJWT{10, 20}); err != nil {
 		log.Fatalln(err)
 	}
 }
 
-func runService(db *gorm.DB, secretKey string) error {
+func runService(db *gorm.DB, secretKey string, timeJWT component.TimeJWT) error {
 	r := gin.Default()
 	// should use os variable
-	appCtx := component.NewAppContext(db, secretKey)
+	appCtx := component.NewAppContext(db, secretKey, timeJWT)
 
 	r.Use(middleware.Recover(appCtx))
 

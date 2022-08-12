@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"task1/component/tokenprovider"
 	"time"
@@ -45,11 +46,13 @@ func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry float32) 
 }
 
 func (j *jwtProvider) Validate(token string) (*tokenprovider.TokenPayload, error) {
+	tmp := 0
 	res, err := jwt.ParseWithClaims(token, &myClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(j.secret), nil
 	})
 	if err != nil {
 		return nil, tokenprovider.ErrInvalidToken
+
 	}
 	if !res.Valid {
 		return nil, tokenprovider.ErrInvalidToken
@@ -59,5 +62,6 @@ func (j *jwtProvider) Validate(token string) (*tokenprovider.TokenPayload, error
 	if !ok {
 		return nil, tokenprovider.ErrInvalidToken
 	}
+	fmt.Println(tmp)
 	return &claims.Payload, nil
 }
