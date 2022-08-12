@@ -4,9 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"strings"
 	"task1/common"
 	"task1/component"
+	"task1/component/tokenprovider"
 	"task1/component/tokenprovider/jwt"
 	storageuser "task1/modules/user/storageUser"
 )
@@ -43,11 +45,33 @@ func RequireAuth(appCtx component.AppContext) func(c *gin.Context) {
 
 		db := appCtx.GetMainDbConnection()
 		store := storageuser.NewSQLStore(db)
+		var flag bool
+		flag = false
 
-		payload, err := tokenProvider.Validate(token)
+		payload, err := tokenProvider.Validate(token, appCtx, &flag)
 		if err != nil {
 			panic(err)
 		}
+
+		if flag {
+			NewAccessToken, err := tokenProvider.Generate(*payload, appCtx.GetTimeJWT().TimeAccess)
+			if err != nil {
+				panic(err)
+			}
+
+			NewRefreshToken, err := tokenProvider.Generate(*payload, appCtx.GetTimeJWT().TimeRefresh)
+			if err != nil {
+				panic(err)
+			}
+
+			account := tokenprovider.Account{
+				AccessToken:  NewAccessToken,
+				RefreshToken: NewRefreshToken,
+			}
+			c.JSON(http.StatusOK, common.SimpleSuccessReponse(account))
+
+		}
+
 		user, err := store.FindUser(c.Request.Context(), map[string]interface{}{"user_id": payload.UserId})
 		if err != nil {
 			panic(err)
@@ -58,6 +82,7 @@ func RequireAuth(appCtx component.AppContext) func(c *gin.Context) {
 		}
 
 		c.Set(common.CurrentUser, user)
+
 		c.Next()
 	}
 }

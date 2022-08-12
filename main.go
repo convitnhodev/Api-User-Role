@@ -6,6 +6,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
+	"os"
 	"task1/component"
 	"task1/middleware"
 	ginrole "task1/modules/role/transportRole/ginRole"
@@ -14,14 +15,16 @@ import (
 )
 
 func main() {
-	dsn := ("taskIbennefit:Thaothaothao2230@tcp(localhost:3306)/task1?charset=utf8mb4&parseTime=True&loc=Local")
+
+	dsn := os.Getenv("NameDB")
+	//dsn := ("taskIbennefit:Thaothaothao2230@tcp(localhost:3306)/task1?charset=utf8mb4&parseTime=True&loc=Local")
 
 	db, _ := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	fmt.Println(db)
 	db = db.Debug()
 
-	if err := runService(db, "viethung", component.TimeJWT{10, 20}); err != nil {
+	if err := runService(db, "viethung", component.TimeJWT{20, 1000000000000000}); err != nil {
 		log.Fatalln(err)
 	}
 }

@@ -1,8 +1,9 @@
 package jwt
 
 import (
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"strings"
+	"task1/component"
 	"task1/component/tokenprovider"
 	"time"
 )
@@ -45,15 +46,27 @@ func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry float32) 
 	}, nil
 }
 
-func (j *jwtProvider) Validate(token string) (*tokenprovider.TokenPayload, error) {
-	tmp := 0
+func (j *jwtProvider) Validate(token string, ctx component.AppContext, flag *bool) (*tokenprovider.TokenPayload, error) {
+	*flag = false
 	res, err := jwt.ParseWithClaims(token, &myClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(j.secret), nil
 	})
-	if err != nil {
-		return nil, tokenprovider.ErrInvalidToken
 
+	if err != nil && !strings.Contains(err.Error(), "token is expired") {
+		return nil, tokenprovider.ErrInvalidToken
 	}
+
+	if err != nil && strings.Contains(err.Error(), "token is expired") {
+		if res.Claims.(*myClaims).ExpiresAt-res.Claims.(*myClaims).IssuedAt == int64(ctx.GetTimeJWT().TimeAccess) {
+			return nil, tokenprovider.ErrInvalidToken1
+		}
+		return nil, tokenprovider.ErrInvalidToken2
+	}
+
+	if res.Claims.(*myClaims).ExpiresAt-res.Claims.(*myClaims).IssuedAt > int64(ctx.GetTimeJWT().TimeAccess) {
+		*flag = true
+	}
+
 	if !res.Valid {
 		return nil, tokenprovider.ErrInvalidToken
 	}
@@ -62,6 +75,5 @@ func (j *jwtProvider) Validate(token string) (*tokenprovider.TokenPayload, error
 	if !ok {
 		return nil, tokenprovider.ErrInvalidToken
 	}
-	fmt.Println(tmp)
 	return &claims.Payload, nil
 }

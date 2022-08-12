@@ -3,12 +3,13 @@ package tokenprovider
 import (
 	"errors"
 	"task1/common"
+	"task1/component"
 	"time"
 )
 
 type Provider interface {
 	Generate(data TokenPayload, expiry float32) (*Token, error)
-	Validate(token string) (*TokenPayload, error)
+	Validate(token string, ctx component.AppContext, flag *bool) (*TokenPayload, error)
 }
 
 var (
@@ -28,6 +29,17 @@ var (
 		errors.New("invalid token provider"),
 		"invalid token provider",
 		"ErrInvalidToken",
+	)
+	ErrInvalidToken1 = common.NewCustomError(
+		errors.New("invalid token provider"),
+		"invalid token provider (het han 1 )",
+		"ErrInvalidToken1",
+	)
+
+	ErrInvalidToken2 = common.NewCustomError(
+		errors.New("invalid token provider"),
+		"invalid token provider (het han 2)",
+		"ErrInvalidToken2",
 	)
 )
 
