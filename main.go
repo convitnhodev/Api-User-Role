@@ -45,6 +45,8 @@ func runService(db *gorm.DB, secretKey string, timeJWT component.TimeJWT) error 
 		user.PATCH("/update/:id", ginuser.UpdateUserByAdmin(appCtx))
 		user.GET("/get/:id", ginuser.GetUserByAdmin(appCtx))
 		user.GET("/list/", ginuser.ListUserByAdmin(appCtx))
+		user.GET("/total-sessions/week/:email", ginuser.GetTotalSessionsWeek(appCtx))
+		user.GET("/total-sessions/month/:email", ginuser.GetTotalSessionsMonth(appCtx))
 	}
 
 	role := v1.Group("/role")
