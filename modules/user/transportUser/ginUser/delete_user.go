@@ -24,6 +24,6 @@ func DeleteUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		if err := biz.DeleteUser(c.Request.Context(), user_id); err != nil {
 			panic(err)
 		}
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(true))
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

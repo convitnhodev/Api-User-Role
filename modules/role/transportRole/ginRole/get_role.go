@@ -21,6 +21,6 @@ func GetRoleByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(result))
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(result))
 	}
 }

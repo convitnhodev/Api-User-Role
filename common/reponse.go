@@ -6,10 +6,10 @@ type successRes struct {
 	Filter interface{} `json:"filter,omitempty"`
 }
 
-func NewSuccessReponse(data interface{}, paging interface{}, filter interface{}) *successRes {
+func NewSuccessResponse(data interface{}, paging interface{}, filter interface{}) *successRes {
 	return &successRes{data, paging, filter}
 }
 
-func SimpleSuccessReponse(data interface{}) *successRes {
+func SimpleSuccessResponse(data interface{}) *successRes {
 	return &successRes{data, nil, nil}
 }

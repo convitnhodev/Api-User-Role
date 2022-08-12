@@ -25,6 +25,6 @@ func CreateUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		if err := biz.CreateNewUser(c.Request.Context(), &data); err != nil {
 			panic(err)
 		}
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(&data))
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(&data))
 	}
 }

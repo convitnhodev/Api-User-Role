@@ -34,6 +34,6 @@ func ListRoleByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(data))
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(data))
 	}
 }

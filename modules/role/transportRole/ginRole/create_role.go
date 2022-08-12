@@ -22,6 +22,6 @@ func CreateRoleByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		if err := biz.CreateRole(c.Request.Context(), &data); err != nil {
 			panic(err)
 		}
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(&data))
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(&data))
 	}
 }

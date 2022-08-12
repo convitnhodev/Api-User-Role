@@ -27,6 +27,6 @@ func ChangePassword(appCtx component.AppContext) func(ctx *gin.Context) {
 			panic(err)
 		}
 
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(true))
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

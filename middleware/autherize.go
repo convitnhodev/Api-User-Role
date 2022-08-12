@@ -68,7 +68,7 @@ func RequireAuth(appCtx component.AppContext) func(c *gin.Context) {
 				AccessToken:  NewAccessToken,
 				RefreshToken: NewRefreshToken,
 			}
-			c.JSON(http.StatusOK, common.SimpleSuccessReponse(account))
+			c.JSON(http.StatusOK, common.SimpleSuccessResponse(account))
 			return
 
 		}

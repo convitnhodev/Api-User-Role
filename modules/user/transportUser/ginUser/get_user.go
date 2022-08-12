@@ -27,6 +27,6 @@ func GetUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(&user))
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(&user))
 	}
 }

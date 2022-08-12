@@ -33,6 +33,6 @@ func UpdateUserByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		if err := biz.UpdateUser(c.Request.Context(), user_id, &data); err != nil {
 			panic(err)
 		}
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(&data))
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(&data))
 	}
 }

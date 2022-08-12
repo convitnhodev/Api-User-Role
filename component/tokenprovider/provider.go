@@ -32,13 +32,13 @@ var (
 	)
 	ErrInvalidToken1 = common.NewCustomError(
 		errors.New("invalid token provider"),
-		"invalid token provider (het han 1 )",
+		"invalid token provider (access token expired)",
 		"ErrInvalidToken1",
 	)
 
 	ErrInvalidToken2 = common.NewCustomError(
 		errors.New("invalid token provider"),
-		"invalid token provider (het han 2)",
+		"invalid token provider (refresh token expired)",
 		"ErrInvalidToken2",
 	)
 )

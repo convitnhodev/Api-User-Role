@@ -19,6 +19,6 @@ func DeleteRoleByAdmin(appCtx component.AppContext) gin.HandlerFunc {
 		if err := biz.DeleteRole(c.Request.Context(), map[string]interface{}{"role_code": role_code}); err != nil {
 			panic(err)
 		}
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(true))
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

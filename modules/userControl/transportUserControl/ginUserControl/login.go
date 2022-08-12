@@ -35,8 +35,6 @@ func Login(appCtx component.AppContext) gin.HandlerFunc {
 			// error handling
 			panic(err)
 		}
-
-		c.JSON(http.StatusOK, common.SimpleSuccessReponse(account))
-
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(account))
 	}
 }
