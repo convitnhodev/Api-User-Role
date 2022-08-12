@@ -11,6 +11,7 @@ import (
 
 type LoginStorage interface {
 	FindUser(ctx context.Context, conditions map[string]interface{}, moreKeys ...string) (*usermodel.User, error)
+	CreateSession(ctx context.Context, email string) error
 }
 
 type Hasher interface {
@@ -82,7 +83,9 @@ func (biz *loginBusiness) Login(ctx context.Context, data *modelUserControl.User
 	if err != nil {
 		return nil, common.GenerateJWTFail(err)
 	}
-
+	if err := biz.storeUser.CreateSession(ctx, user.Email); err != nil {
+		return nil, common.ErrInvalidLogin(err)
+	}
 	account := tokenprovider.Account{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
