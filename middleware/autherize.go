@@ -69,6 +69,7 @@ func RequireAuth(appCtx component.AppContext) func(c *gin.Context) {
 				RefreshToken: NewRefreshToken,
 			}
 			c.JSON(http.StatusOK, common.SimpleSuccessReponse(account))
+			return
 
 		}
 
