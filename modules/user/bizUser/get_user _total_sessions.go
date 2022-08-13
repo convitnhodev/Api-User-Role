@@ -14,7 +14,7 @@ type userLoginBiz struct {
 	store UserLoginStore
 }
 
-func NewUserLoginWeekBiz(store UserLoginStore) *userLoginBiz {
+func NewUserLoginBiz(store UserLoginStore) *userLoginBiz {
 	return &userLoginBiz{store}
 }
 

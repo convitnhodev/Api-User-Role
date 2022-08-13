@@ -47,6 +47,8 @@ func runService(db *gorm.DB, secretKey string, timeJWT component.TimeJWT) error 
 		user.GET("/list/", ginuser.ListUserByAdmin(appCtx))
 		user.GET("/total-sessions/week/:email", ginuser.GetTotalSessionsWeek(appCtx))
 		user.GET("/total-sessions/month/:email", ginuser.GetTotalSessionsMonth(appCtx))
+		user.GET("/list-total-sessions/week", ginuser.ListTotalSessionsWeek(appCtx))
+		user.GET("/list-total-sessions/month", ginuser.ListTotalSessionsWeek(appCtx))
 	}
 
 	role := v1.Group("/role")
@@ -57,11 +59,11 @@ func runService(db *gorm.DB, secretKey string, timeJWT component.TimeJWT) error 
 		role.GET("/list/", ginrole.ListRoleByAdmin(appCtx))
 	}
 
-	userControl := v1.Group("/usercontrol")
+	userControl := v1.Group("/user-control")
 	{
 		userControl.POST("/login", ginUserControl.Login(appCtx))
 		userControl.GET("/profile", middleware.RequireAuth(appCtx), middleware.RequireRoles(appCtx, "get profile"), ginUserControl.GetProfile(appCtx))
-		userControl.POST("/changepassword", middleware.RequireAuth(appCtx), ginUserControl.ChangePassword(appCtx))
+		userControl.POST("/change-password", middleware.RequireAuth(appCtx), ginUserControl.ChangePassword(appCtx))
 
 	}
 	return r.Run(":8080")

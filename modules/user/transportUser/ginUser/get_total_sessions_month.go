@@ -14,7 +14,7 @@ func GetTotalSessionsMonth(appCtx component.AppContext) gin.HandlerFunc {
 		email := c.Param("email")
 
 		store := storageuser.NewSQLStore(appCtx.GetMainDbConnection())
-		biz := bizuser.NewUserLoginWeekBiz(store)
+		biz := bizuser.NewUserLoginBiz(store)
 		total, err := biz.CountSessionsMonth(c.Request.Context(), email)
 		if err != nil {
 			panic(err)

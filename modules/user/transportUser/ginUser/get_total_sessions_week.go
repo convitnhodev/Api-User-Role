@@ -6,6 +6,7 @@ import (
 	"task1/common"
 	"task1/component"
 	bizuser "task1/modules/user/bizUser"
+	usermodel "task1/modules/user/modelUser"
 	storageuser "task1/modules/user/storageUser"
 )
 
@@ -14,7 +15,7 @@ func GetTotalSessionsWeek(appCtx component.AppContext) gin.HandlerFunc {
 		email := c.Param("email")
 
 		store := storageuser.NewSQLStore(appCtx.GetMainDbConnection())
-		biz := bizuser.NewUserLoginWeekBiz(store)
+		biz := bizuser.NewUserLoginBiz(store)
 		total, err := biz.CountSessionsWeek(c.Request.Context(), email)
 		if err != nil {
 			panic(err)
@@ -23,7 +24,7 @@ func GetTotalSessionsWeek(appCtx component.AppContext) gin.HandlerFunc {
 			Email string `json:"email"`
 			Total int    `json:"total_sessions"`
 		}
-		response := Response{
+		response := usermodel.SqlData{
 			email,
 			*total,
 		}

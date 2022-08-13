@@ -7,6 +7,11 @@ import (
 	modelrole "task1/modules/role/modelRole"
 )
 
+type SqlData struct {
+	Email string `gorm:"column:email"`
+	Count int    `gorm:"column:count"`
+}
+
 type User struct {
 	Id              int `json:"id" gorm:"column:user_id;primaryKey"`
 	Active          int `json:"active" gorm:"column:active;default:1"`
